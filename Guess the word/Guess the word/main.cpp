@@ -4,28 +4,40 @@
 using namespace std;
 
 void PrintIntro();
-string GetGuess();
-
+string GetGuessAndPrint();
+void LetsLoop();
 
 
 int main()
 {
-	GetGuess();
+	PrintIntro();
+	LetsLoop();
+	
 	return 0;
 
 }
 
 void PrintIntro()
 {
-	constexpr int World_len = 5;
+	constexpr int ur_turns = 5;
 	cout << "Welcome to guessing game!" << endl;
-	cout << "can you guess the word of length " << World_len << endl;
+
+	cout << "can you guess the word of length " << ur_turns << endl;
 	return;
 }
 
-string GetGuess()
+void LetsLoop()
 {
-	PrintIntro();
+	for (int i=0; i<5; i++)
+	{
+		GetGuessAndPrint();
+		cout<<endl;
+	}
+}
+
+string GetGuessAndPrint()
+{
+	
 
 	cout << "Enter Your Guess: ";
 	string Guess = "";
