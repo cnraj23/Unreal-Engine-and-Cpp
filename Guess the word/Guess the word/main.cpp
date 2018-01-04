@@ -4,44 +4,54 @@
 using namespace std;
 
 void PrintIntro();
-string GetGuessAndPrint();
-void LetsLoop();
-
+string GetGuess();
+void PlayGame();
+bool AskToPlayAgain();
 
 int main()
 {
-	PrintIntro();
-	LetsLoop();
+	bool wannaplay = false;
+	do 
+	{
+		PrintIntro();
+		PlayGame();
+		wannaplay = AskToPlayAgain();
+	} while (wannaplay);
 	
 	return 0;
-
 }
 
 void PrintIntro()
 {
-	constexpr int ur_turns = 5;
 	cout << "Welcome to guessing game!" << endl;
-
-	cout << "can you guess the word of length " << ur_turns << endl;
 	return;
 }
 
-void LetsLoop()
+void PlayGame()
 {
-	for (int i=0; i<5; i++)
+	constexpr int ur_turns = 5;
+	cout << "You have total " <<ur_turns<<" turns to play!!"<< endl;
+	for (int i=0; i<ur_turns; i++)
 	{
-		GetGuessAndPrint();
+		string Guess = GetGuess();
+		cout << "You guessed: " << Guess << endl;
 		cout<<endl;
 	}
 }
 
-string GetGuessAndPrint()
+bool AskToPlayAgain()
 {
-	
+	cout << "do you want to play again? [Yes/No] " << endl;
+	string ur_reply = "";
+	getline(cin, ur_reply);
+	 
+	return (ur_reply[0] == 'y') || (ur_reply[0] == 'Y');
+}
 
+string GetGuess()
+{
 	cout << "Enter Your Guess: ";
 	string Guess = "";
 	getline(cin, Guess);
-	cout << "You guessed: " << Guess << endl;
 	return Guess;
 }
