@@ -3,6 +3,18 @@
 
 using namespace std;
 
+void PrintIntro();
+string GetGuess();
+
+
+
+int main()
+{
+	GetGuess();
+	return 0;
+
+}
+
 void PrintIntro()
 {
 	constexpr int World_len = 5;
@@ -11,16 +23,13 @@ void PrintIntro()
 	return;
 }
 
-
-
-int main()
+string GetGuess()
 {
 	PrintIntro();
+
 	cout << "Enter Your Guess: ";
 	string Guess = "";
 	getline(cin, Guess);
 	cout << "You guessed: " << Guess << endl;
-
-	return 0;
-
+	return Guess;
 }
