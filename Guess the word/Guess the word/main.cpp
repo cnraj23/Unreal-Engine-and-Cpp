@@ -1,13 +1,14 @@
 #include<iostream>
 #include <string>
+#include "FGuessGame.h"
 
-using namespace std;
 
 void PrintIntro();
-string GetGuess();
+std::string GetGuess();
 void PlayGame();
 bool AskToPlayAgain();
 
+FGuessGame BCGame;
 int main()
 {
 	bool wannaplay = false;
@@ -15,6 +16,7 @@ int main()
 	{
 		PrintIntro();
 		PlayGame();
+
 		wannaplay = AskToPlayAgain();
 	} while (wannaplay);
 	
@@ -23,35 +25,43 @@ int main()
 
 void PrintIntro()
 {
-	cout << "Welcome to guessing game!" << endl;
+	constexpr int WORD_LEN = 9;
+	std::cout << "Welcome to guessing game!" << std::endl;
+	std::cout << "Can you guess the " << WORD_LEN <<" letter word I am thinking of? "<<std::endl;
 	return;
 }
 
 void PlayGame()
 {
-	constexpr int ur_turns = 5;
-	cout << "You have total " <<ur_turns<<" turns to play!!"<< endl;
-	for (int i=0; i<ur_turns; i++)
+	BCGame.Reset();
+	int maxTries = BCGame.GetMaxTries();
+	
+	
+	std::cout << "You have total " << maxTries <<" turns to play!!"<< std::endl;
+	for (int i=0; i<maxTries; i++)
 	{
-		string Guess = GetGuess();
-		cout << "You guessed: " << Guess << endl;
-		cout<<endl;
+		std::string Guess = GetGuess(); 
+		std::cout << std::endl;
+		std::cout << "You guessed: " << Guess << std::endl;
+		std::cout<<std::endl;
 	}
+	// TODO summarise game
+
 }
 
 bool AskToPlayAgain()
 {
-	cout << "do you want to play again? [Yes/No] " << endl;
-	string ur_reply = "";
-	getline(cin, ur_reply);
+	std::cout << "do you want to play again? [Yes/No] " << std::endl;
+	std::string ur_reply = "";
+	getline(std::cin, ur_reply);
 	 
 	return (ur_reply[0] == 'y') || (ur_reply[0] == 'Y');
 }
 
-string GetGuess()
+std::string GetGuess()
 {
-	cout << "Enter Your Guess: ";
-	string Guess = "";
-	getline(cin, Guess);
+	std::cout << " Enter Your Guess: ";
+	std::string Guess = "";
+	getline(std::cin, Guess);
 	return Guess;
 }
