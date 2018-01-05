@@ -5,30 +5,98 @@ FGuessGame::FGuessGame()
 	Reset();
 }
 
-int FGuessGame::GetMaxTries() const
+int32 FGuessGame::GetMaxTries() const
 {
 	return MyMaxTries;
 }
 
-int FGuessGame::GetCurrentTry() const
+int32 FGuessGame::GetCurrentTry() const
 {
 	return MyCurrentTry;
 }
 
 bool FGuessGame::IsGameWon() const
 {
-	return false;
+	return bGameIsWon;
+}
+
+
+
+int32 FGuessGame::GetHiddenWordLength() const
+{
+	return MyHiddenWord.length();
 }
 
 void FGuessGame::Reset()
 {
-	MyCurrentTry = 1;
-	constexpr int MAX_TRIES = 4;
+	constexpr int32 MAX_TRIES = 4;
+	const FString Hidden_Word = "door";
+
 	MyMaxTries = MAX_TRIES;
+	MyHiddenWord = Hidden_Word;
+	MyCurrentTry = 1;
+	bGameIsWon = false;
 	return;
 }
 
-bool FGuessGame::CheckGuessValidity(std::string)
+FBullCowCount FGuessGame::SubmitValidGuess(FString Guess)
 {
-	return false;
+	MyCurrentTry++; // incriment turn number
+	FBullCowCount BullCowCount;
+	int32 hiddenwrdLen = MyHiddenWord.length();
+	
+
+	for (int32 HWChar=0; HWChar<hiddenwrdLen; HWChar++)
+	{
+		for (int32 GChar = 0; GChar < hiddenwrdLen; GChar++)
+		{
+			if (Guess[HWChar] == MyHiddenWord[HWChar])
+			{
+				if (HWChar == GChar) 
+				{
+					BullCowCount.Bulls++;
+				}
+				else
+				{
+					BullCowCount.Cows++;
+				}
+			}
+		}
+	}
+	if (BullCowCount.Bulls == hiddenwrdLen) 
+	{
+		bGameIsWon = true;
+	}
+	else
+	{
+		bGameIsWon = false;
+	}
+	return BullCowCount;
+}
+
+EGuessStatus FGuessGame::CheckGuessValidity(FString Guess) const
+{
+	if (false)
+	{
+		return EGuessStatus::Invalid_Status;
+	}
+	else if (false)
+	{
+		return EGuessStatus::Not_Lowercase;
+	}
+	else if (false)
+	{
+		return EGuessStatus::Not_Isogram;
+	}
+	else if (Guess.length() != GetHiddenWordLength())
+	{
+		return EGuessStatus::Wrong_Length;
+	}
+	else
+	{
+		return EGuessStatus::OK;
+	}
+
+
+	
 }
